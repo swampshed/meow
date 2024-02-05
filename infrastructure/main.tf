@@ -20,6 +20,7 @@ module "lambda_function" {
   description   = "Opsy Popsy"
   handler       = "bootstrap"
   runtime       = "provided.al2023"
-
-  source_path = "${path.root}/function.zip"
+  architectures = ["x86_64"]
+  create_package         = false
+  local_existing_package = "${path.root}/function.zip"
 }
