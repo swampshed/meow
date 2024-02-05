@@ -1,6 +1,6 @@
 .PHONY:build
 build:
-	GOOS=linux GOARCH=arm64 go build -tags lambda.norpc -o bootstrap main.go
+	GOOS=linux GOARCH=amd64 go build -tags lambda.norpc -o bootstrap main.go
 
 zip: build
 	zip function.zip bootstrap
