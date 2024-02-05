@@ -1,0 +1,21 @@
+name: Publish release
+
+permissions: read-all
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  release:
+    name: release
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+
+      - name: release
+        run: make semantic-release-ci
