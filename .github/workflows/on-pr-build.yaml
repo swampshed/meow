@@ -1,0 +1,30 @@
+name: Build
+permissions:
+  contents: read
+  id-token: write
+on: [pull_request]
+# if we push changes while a PR check is running, cancel it and run the new one
+concurrency:
+  group: ${{ github.ref }}-build
+  cancel-in-progress: true
+jobs:
+  build:
+    name: Build all images
+    runs-on: ubuntu-latest
+    env:
+      AWS_REGION: eu-west-1
+      AWS_ASSUME_ROLE: arn:aws:iam::273378088237:role/github-actions
+      AWS_SESSION_NAME: GitHubActionsAssumeRoleSession
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: ${{ env.AWS_ASSUME_ROLE }}
+          role-session-name: ${{ env.AWS_SESSION_NAME }}
+          aws-region: ${{ env.AWS_REGION }}
+      - name: run s3 list
+        run: aws s3 list
