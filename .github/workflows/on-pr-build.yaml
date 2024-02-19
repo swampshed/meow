@@ -9,11 +9,11 @@ concurrency:
   cancel-in-progress: true
 jobs:
   build:
-    name: Build all images
+    name: Build
     runs-on: ubuntu-latest
     env:
       AWS_REGION: eu-west-1
-      AWS_ASSUME_ROLE: arn:aws:iam::273378088237:role/github-actions
+      AWS_ASSUME_ROLE: arn:aws:iam::654654380708:role/github-actions
       AWS_SESSION_NAME: GitHubActionsAssumeRoleSession
     steps:
       - name: checkout
